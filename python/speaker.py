@@ -112,18 +112,19 @@ class SpeakerListModel(QtCore.QAbstractListModel):
         position = self.rowCount()
         self.beginInsertRows(QtCore.QModelIndex(), position, position)
         self.speakers.append(speaker)
-        speaker.signals.nameChanged.connect(lambda x : self.on_name_change(speaker, x))
+        speaker.signals.nameChanged.connect(self.on_name_change)
         self.endInsertRows()
         return True
 
-    def on_name_change(self, speaker, name):
-        print (speaker, name)
+    def on_name_change(self, _):
+        # hack: update all data if one of the names changed
+        self.dataChanged.emit(self.index(0, 0), self.index(self.rowCount(), 0))
 
     def popSpeaker(self, position = 0):
         if not (0 <= position <= len(self.speakers)) :
             return
         self.beginRemoveRows(QtCore.QModelIndex(), position, position)
         s = self.speakers.pop(position)
-        s.signals.nameChanged.disconnect() # hack: disconnecting all, should disconnect only one callable
+        s.signals.nameChanged.disconnect(on_name_change)
         self.endRemoveRows()
         return s

@@ -19,30 +19,37 @@ class MainWindow(base, form):
         self.speakersList.setModel(self.speakersListModel)
         self.contradictorsList.setModel(self.contradictorsListModel)
 
+        self.allSpeakers = []
+        self.queueSignalMapper = QtCore.QSignalMapper(self)
+        self.contradictSignalMapper = QtCore.QSignalMapper(self)
+        self.queueSignalMapper.mapped.connect(self.on_speaker_queues_up)
+        self.contradictSignalMapper.mapped.connect(self.on_speaker_contradicts)
+
         self.populateScene(["Andreas", "Birgit", "Cherubim", "Dragon", "Enavigo"])
 
         self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)
 
     def populateScene(self, speakers):
-        self.allSpeakers = []
-        self.queueSignalMapper = QtCore.QSignalMapper(self)
-        self.contradictSignalMapper = QtCore.QSignalMapper(self)
         for i, s in enumerate(speakers):
             speaker = Speaker(s)
-            self.allSpeakers.append(speaker)
-            self.queueSignalMapper.setMapping(speaker.signals, i)
-            self.contradictSignalMapper.setMapping(speaker.signals, i)
-            speaker.signals.queuedUp.connect(self.queueSignalMapper.map)
-            speaker.signals.contradicts.connect(self.contradictSignalMapper.map)
-            self.scene.addItem(speaker)
+            self.add_speaker(speaker)
             speaker.translate(100*i, 0)
-        self.queueSignalMapper.mapped.connect(self.on_speaker_queues_up)
-        self.contradictSignalMapper.mapped.connect(self.on_speaker_contradicts)
+
         self.update()
+
+    def add_speaker(self, speaker):
+        i = len(self.allSpeakers)
+        self.allSpeakers.append(speaker)
+        self.queueSignalMapper.setMapping(speaker.signals, i)
+        self.contradictSignalMapper.setMapping(speaker.signals, i)
+        speaker.signals.queuedUp.connect(self.queueSignalMapper.map)
+        speaker.signals.contradicts.connect(self.contradictSignalMapper.map)
+        self.scene.addItem(speaker)
+
 
     def on_add_speaker(self):
         speaker = Speaker("Unnamed")
-        self.scene.addItem(speaker)
+        self.add_speaker(speaker)
         self.update()
 
     def on_speaker_queues_up(self, index):
