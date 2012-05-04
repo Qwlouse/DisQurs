@@ -99,10 +99,10 @@ class MainWindow(base, form):
 
 
     def start_speech(self, speaker):
-        speaker.turnGreen()
+        speaker.changeColor("green")
 
     def stop_speech(self, speaker):
-        speaker.turnGray()
+        speaker.changeColor("gray")
 
 
     def on_next_action(self):

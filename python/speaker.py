@@ -14,6 +14,14 @@ class SpeakerSignalDummy(QtCore.QObject):
     queuedUp = QtCore.pyqtSignal()
     contradicts = QtCore.pyqtSignal()
 
+PORTRAITS = [
+    ("gray", "res/Person.png"),
+    ("green", "res/Person_green.png"),
+    ("lightgreen", "res/Person_lightgreen.png"),
+    ("red", "res/Person_red.png"),
+    ("lightred", "res/Person_lightred.png")
+]
+
 
 class Speaker(QtGui.QGraphicsItemGroup):
     def __init__(self, name, parent=None):
@@ -25,22 +33,21 @@ class Speaker(QtGui.QGraphicsItemGroup):
         self.text = QtGui.QGraphicsTextItem(name)
         self.text.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.addToGroup(self.text)
-        self.portrait = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person.png"))
-        self.portrait.setY(-35)
-        self.portrait_green = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person_green.png"))
-        self.portrait_green.setY(-35)
-        self.portrait_red = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person_red.png"))
-        self.portrait_red.setY(-35)
+        self.portraits = {}
+        for c, f in PORTRAITS:
+            self.addPortrait(c, f)
 
-        self.addToGroup(self.portrait)
-        self.addToGroup(self.portrait_green)
-        self.addToGroup(self.portrait_red)
+        self.changeColor("gray")
 
-        self.turnGray()
 
         self.editing = False
         self.dragging = False
         self.leftButtonDown = None
+
+    def addPortrait(self, color, filename, yoffset=-35):
+        self.portraits[color] = QtGui.QGraphicsPixmapItem(QtGui.QPixmap(filename))
+        self.portraits[color].setY(yoffset)
+        self.addToGroup(self.portraits[color])
 
     @property
     def name(self):
@@ -105,20 +112,11 @@ class Speaker(QtGui.QGraphicsItemGroup):
             self.update()
 
 
-    def turnGray(self):
+    def changeColor(self, color):
+        for p in self.portraits.values():
+            p.setVisible(False)
+        self.portrait = self.portraits[color]
         self.portrait.setVisible(True)
-        self.portrait_green.setVisible(False)
-        self.portrait_red.setVisible(False)
-
-    def turnGreen(self):
-        self.portrait.setVisible(False)
-        self.portrait_green.setVisible(True)
-        self.portrait_red.setVisible(False)
-
-    def turnRed(self):
-        self.portrait.setVisible(False)
-        self.portrait_green.setVisible(False)
-        self.portrait_red.setVisible(True)
 
 class SpeakerListModel(QtCore.QAbstractListModel):
     def __init__(self, parent=None):
