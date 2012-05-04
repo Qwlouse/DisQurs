@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>DisQurs -- Python Prototype</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -87,13 +87,13 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionAdd_Person"/>
+   <addaction name="actionAdd_Speaker"/>
    <addaction name="actionNext"/>
    <addaction name="actionPause"/>
   </widget>
-  <action name="actionAdd_Person">
+  <action name="actionAdd_Speaker">
    <property name="text">
-    <string>Add Person</string>
+    <string>Add Speaker</string>
    </property>
   </action>
   <action name="actionNext">

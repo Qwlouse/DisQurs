@@ -16,6 +16,8 @@ class MainWindow(base, form):
         self.speakersView.setScene(self.scene)
         self.populateScene(["Andreas", "Birgit", "Cherubim", "Dragon", "Enavigo"])
 
+        self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)
+
     def populateScene(self, speakers):
         for i, s in enumerate(speakers):
             speaker = Speaker(s)
@@ -23,6 +25,10 @@ class MainWindow(base, form):
             speaker.translate(100*i, 0)
         self.update()
 
+    def on_add_speaker(self):
+        speaker = Speaker("Unnamed")
+        self.scene.addItem(speaker)
+        self.update()
 
 def main():
     app = QtGui.QApplication(sys.argv)
