@@ -78,3 +78,39 @@ class Speaker(QtGui.QGraphicsItemGroup):
             self.text.setTextCursor(self.noCursor)
             self.signals.nameChanged.emit(self.name)
             self.update()
+
+
+
+class SpeakerListModel(QtCore.QAbstractListModel):
+    def __init__(self, parent=None):
+        QtCore.QAbstractListModel.__init__(self, parent)
+        self.speakers = []
+
+    def rowCount(self, parent=None, *args, **kwargs):
+        return len(self.speakers)
+
+    def data(self, index, role=None):
+        row = index.row()
+        speaker = self.speakers[row]
+        if role == QtCore.Qt.DisplayRole:
+            return speaker.name
+
+    def appendSpeaker(self, speaker):
+        position = self.rowCount()
+        self.beginInsertRows(QtCore.QModelIndex(), position, position)
+        self.speakers.append(speaker)
+        speaker.signals.nameChanged.connect(lambda x : self.on_name_change(speaker, x))
+        self.endInsertRows()
+        return True
+
+    def on_name_change(self, speaker, name):
+        print (speaker, name)
+
+    def popSpeaker(self, position = 0):
+        if not (0 <= position <= len(self.speakers)) :
+            return
+        self.beginRemoveRows(QtCore.QModelIndex(), position, position)
+        s = self.speakers.pop(position)
+        s.signals.nameChanged.disconnect() # hack: disconnecting all, should disconnect only one callable
+        self.endRemoveRows()
+        return s

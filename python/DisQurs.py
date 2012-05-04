@@ -5,7 +5,7 @@ import sys
 
 from PyQt4 import QtGui, uic
 
-from speaker import Speaker
+from speaker import Speaker, SpeakerListModel
 
 base, form = uic.loadUiType("MainWindow.ui")
 class MainWindow(base, form):
@@ -14,6 +14,11 @@ class MainWindow(base, form):
         self.setupUi(self)
         self.scene = QtGui.QGraphicsScene()
         self.speakersView.setScene(self.scene)
+        self.speakersListModel = SpeakerListModel()
+        self.contradictorsListModel = SpeakerListModel()
+        self.speakersList.setModel(self.speakersListModel)
+        self.contradictorsList.setModel(self.contradictorsListModel)
+
         self.populateScene(["Andreas", "Birgit", "Cherubim", "Dragon", "Enavigo"])
 
         self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)

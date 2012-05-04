@@ -61,7 +61,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="QListView" name="countersList">
+          <widget class="QListView" name="contradictorsList">
            <property name="maximumSize">
             <size>
              <width>300</width>
