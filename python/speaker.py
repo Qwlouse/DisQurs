@@ -27,7 +27,16 @@ class Speaker(QtGui.QGraphicsItemGroup):
         self.addToGroup(self.text)
         self.portrait = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person.png"))
         self.portrait.setY(-35)
+        self.portrait_green = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person_green.png"))
+        self.portrait_green.setY(-35)
+        self.portrait_red = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person_red.png"))
+        self.portrait_red.setY(-35)
+
         self.addToGroup(self.portrait)
+        self.addToGroup(self.portrait_green)
+        self.addToGroup(self.portrait_red)
+
+        self.turnGray()
 
         self.editing = False
         self.dragging = False
@@ -96,6 +105,20 @@ class Speaker(QtGui.QGraphicsItemGroup):
             self.update()
 
 
+    def turnGray(self):
+        self.portrait.setVisible(True)
+        self.portrait_green.setVisible(False)
+        self.portrait_red.setVisible(False)
+
+    def turnGreen(self):
+        self.portrait.setVisible(False)
+        self.portrait_green.setVisible(True)
+        self.portrait_red.setVisible(False)
+
+    def turnRed(self):
+        self.portrait.setVisible(False)
+        self.portrait_green.setVisible(False)
+        self.portrait_red.setVisible(True)
 
 class SpeakerListModel(QtCore.QAbstractListModel):
     def __init__(self, parent=None):
@@ -124,7 +147,7 @@ class SpeakerListModel(QtCore.QAbstractListModel):
         self.dataChanged.emit(self.index(0, 0), self.index(self.rowCount(), 0))
 
     def popSpeaker(self, position = 0):
-        if not (0 <= position <= len(self.speakers)) :
+        if not (0 <= position <= len(self.speakers)) or len(self.speakers) == 0:
             return
         self.beginRemoveRows(QtCore.QModelIndex(), position, position)
         s = self.speakers.pop(position)

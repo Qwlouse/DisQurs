@@ -33,6 +33,7 @@ class MainWindow(base, form):
         self.populateScene(["Andreas", "Birgit", "Cherubim", "Dragon", "Enavigo"])
 
         self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)
+        self.actionNext.triggered.connect(self.on_next_action)
 
     def populateScene(self, speakers):
         for i, s in enumerate(speakers):
@@ -70,9 +71,10 @@ class MainWindow(base, form):
             # turn contradictor into follow-up speaker
             self.contradictorsListModel.popSpeaker()
 
+        if not len(speakersList):
+            self.start_speech(speaker)
+        self.speakersListModel.appendSpeaker(speaker)
 
-
-        self.speakersListModel.appendSpeaker(self.allSpeakers[index])
 
     def on_speaker_contradicts(self, index):
         contradictor = self.allSpeakers[index]
@@ -94,6 +96,28 @@ class MainWindow(base, form):
             return
 
         self.contradictorsListModel.appendSpeaker(self.allSpeakers[index])
+
+
+    def start_speech(self, speaker):
+        speaker.turnGreen()
+
+    def stop_speech(self, speaker):
+        speaker.turnGray()
+
+
+    def on_next_action(self):
+        # ersten redebeitrag abschließen
+        # redner aus redeliste entfernen
+        s = self.speakersListModel.popSpeaker()
+        if s is None:
+            return
+        self.stop_speech(s)
+        # Gegenrede starten
+
+        # nächsten redebeitrag beginnen
+        if len(self.speakersListModel.speakers) > 0:
+            ns = self.speakersListModel.speakers[0]
+            self.start_speech(ns)
 
 
 def main():
