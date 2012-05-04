@@ -11,7 +11,8 @@ class SpeakerSignalDummy(QtCore.QObject):
     it is not possible to multiple-inherit from two PyQt classes.
     """
     nameChanged = QtCore.pyqtSignal(str)
-
+    queuedUp = QtCore.pyqtSignal()
+    contradicts = QtCore.pyqtSignal()
 
 
 class Speaker(QtGui.QGraphicsItemGroup):
@@ -27,7 +28,10 @@ class Speaker(QtGui.QGraphicsItemGroup):
         self.portrait = QtGui.QGraphicsPixmapItem(QtGui.QPixmap("res/Person.png"))
         self.portrait.setY(-35)
         self.addToGroup(self.portrait)
+
         self.editing = False
+        self.dragging = False
+        self.leftButtonDown = None
 
     @property
     def name(self):
@@ -45,6 +49,8 @@ class Speaker(QtGui.QGraphicsItemGroup):
         if self.editing :
             self.text.mousePressEvent(event)
         else :
+            if event.button() == 1:
+                self.leftButtonDown = event.screenPos()
             super(Speaker, self).mousePressEvent(event)
 
 
@@ -59,6 +65,13 @@ class Speaker(QtGui.QGraphicsItemGroup):
         if self.editing :
             self.text.mouseReleaseEvent(event)
         else:
+            if event.button() == 1 and self.leftButtonDown is not None:
+                movedDistance = (self.leftButtonDown - event.screenPos()).manhattanLength()
+                if movedDistance < 2:
+                    self.signals.queuedUp.emit()
+                self.leftButtonDown = None
+            elif event.button() == 2:
+                self.signals.contradicts.emit()
             super(Speaker, self).mouseReleaseEvent(event)
 
 
