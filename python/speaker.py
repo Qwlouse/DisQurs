@@ -65,12 +65,17 @@ class Speaker(QtGui.QGraphicsItemGroup):
         if self.editing :
             self.text.mouseReleaseEvent(event)
         else:
-            if event.button() == 1 and self.leftButtonDown is not None:
+            print("BoundingRect:",self.portrait.boundingRect() )
+            print("Event", event.scenePos())
+            if event.button() == 1 and \
+               self.leftButtonDown is not None and \
+               self.portrait.contains(event.pos() + QtCore.QPointF(0, 35)):
                 movedDistance = (self.leftButtonDown - event.screenPos()).manhattanLength()
                 if movedDistance < 2:
                     self.signals.queuedUp.emit()
                 self.leftButtonDown = None
-            elif event.button() == 2:
+            elif event.button() == 2 and \
+                 self.portrait.contains(event.pos() + QtCore.QPointF(0, 35)):
                 self.signals.contradicts.emit()
             super(Speaker, self).mouseReleaseEvent(event)
 
