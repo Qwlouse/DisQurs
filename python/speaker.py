@@ -65,8 +65,6 @@ class Speaker(QtGui.QGraphicsItemGroup):
         if self.editing :
             self.text.mouseReleaseEvent(event)
         else:
-            print("BoundingRect:",self.portrait.boundingRect() )
-            print("Event", event.scenePos())
             if event.button() == 1 and \
                self.leftButtonDown is not None and \
                self.portrait.contains(event.pos() + QtCore.QPointF(0, 35)):
@@ -130,6 +128,6 @@ class SpeakerListModel(QtCore.QAbstractListModel):
             return
         self.beginRemoveRows(QtCore.QModelIndex(), position, position)
         s = self.speakers.pop(position)
-        s.signals.nameChanged.disconnect(on_name_change)
+        s.signals.nameChanged.disconnect(self.on_name_change)
         self.endRemoveRows()
         return s

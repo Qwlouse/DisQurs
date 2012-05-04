@@ -7,6 +7,11 @@ from PyQt4 import QtCore, QtGui, uic
 
 from speaker import Speaker, SpeakerListModel
 
+# Global configuration flags for speaker list logic
+disallowMultipleQueueUps = True
+followUpSpeakerCanContradict = False
+
+
 base, form = uic.loadUiType("MainWindow.ui")
 class MainWindow(base, form):
     def __init__(self, parent=None, *args, **kwargs):
@@ -53,10 +58,43 @@ class MainWindow(base, form):
         self.update()
 
     def on_speaker_queues_up(self, index):
+        speaker = self.allSpeakers[index]
+        if speaker in self.speakersListModel.speakers and disallowMultipleQueueUps:
+            print("No multi-Queue-Ups")
+            return
+
+        speakersList = self.speakersListModel.speakers
+        contradictorsList = self.contradictorsListModel.speakers
+        if not followUpSpeakerCanContradict and len(speakersList) == 1 and \
+           len(contradictorsList) > 0 and speaker is contradictorsList[0]:
+            # turn contradictor into follow-up speaker
+            self.contradictorsListModel.popSpeaker()
+
+
+
         self.speakersListModel.appendSpeaker(self.allSpeakers[index])
 
     def on_speaker_contradicts(self, index):
+        contradictor = self.allSpeakers[index]
+        if contradictor in self.contradictorsListModel.speakers:
+            print("cannot contradict more than once")
+            return
+
+        speakersList = self.speakersListModel.speakers
+        if not len(speakersList):
+            print("Nobody speaks")
+            return
+
+        if contradictor is speakersList[0]:
+            print("nobody can contradict himself")
+            return
+
+        if not followUpSpeakerCanContradict and len(speakersList) > 1 and contradictor is speakersList[1]:
+            print("follow-up speaker cannot contradict")
+            return
+
         self.contradictorsListModel.appendSpeaker(self.allSpeakers[index])
+
 
 def main():
     app = QtGui.QApplication(sys.argv)
