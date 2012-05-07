@@ -35,6 +35,9 @@ class MainWindow(base, form):
         self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)
         self.actionNext.triggered.connect(self.on_next_action)
 
+        self.contradicting = False
+        self.currentSpeaker = None
+
     def populateScene(self, speakers):
         for i, s in enumerate(speakers):
             speaker = Speaker(s)
@@ -71,23 +74,31 @@ class MainWindow(base, form):
             # turn contradictor into follow-up speaker
             self.contradictorsListModel.popSpeaker()
 
-        if not len(speakersList):
-            self.start_speech(speaker)
         self.speakersListModel.appendSpeaker(speaker)
+        if self.currentSpeaker is None:
+            self.start_speech()
+
+        # if it is second speaker color him!
+        if len(self.speakersListModel.speakers) == 2:
+            self.speakersListModel.speakers[1].changeColor("lightgreen")
 
 
     def on_speaker_contradicts(self, index):
+        oldContradictor = None
+        if len(self.contradictorsListModel.speakers) > 0:
+            oldContradictor = self.contradictorsListModel.speakers[0]
+
         contradictor = self.allSpeakers[index]
         if contradictor in self.contradictorsListModel.speakers:
             print("cannot contradict more than once")
             return
 
         speakersList = self.speakersListModel.speakers
-        if not len(speakersList):
+        if self.currentSpeaker is None:
             print("Nobody speaks")
             return
 
-        if contradictor is speakersList[0]:
+        if contradictor is self.currentSpeaker:
             print("nobody can contradict himself")
             return
 
@@ -95,29 +106,77 @@ class MainWindow(base, form):
             print("follow-up speaker cannot contradict")
             return
 
+        if self.contradicting :
+            print("Cannot contradict a contradictor!")
+            return
+
         self.contradictorsListModel.appendSpeaker(self.allSpeakers[index])
+        #TODO: Sort contradictors
+        if oldContradictor is not None :
+            oldContradictor.changeColor("gray")
+        newContradictor = self.contradictorsListModel.speakers[0]
+        newContradictor.changeColor("lightred")
 
 
-    def start_speech(self, speaker):
+
+    def start_speech(self):
+        assert len(self.speakersListModel.speakers) > 0
+        assert self.currentSpeaker is None
+        speaker = self.speakersListModel.speakers[0]
         speaker.changeColor("green")
+        self.currentSpeaker = speaker
+        self.contradicting = False
+        #TODO: Start timer
+        # color next speaker
+        if len(self.speakersListModel.speakers) > 1:
+            self.speakersListModel.speakers[1].changeColor("lightgreen")
 
-    def stop_speech(self, speaker):
-        speaker.changeColor("gray")
+    def stop_speech(self):
+        speaker = self.speakersListModel.popSpeaker()
+        assert speaker is self.currentSpeaker is not None
+        self.currentSpeaker.changeColor("gray")
+        self.currentSpeaker = None
+        #TODO: stop timer
+
+    def start_contradiction(self):
+        assert len(self.contradictorsListModel.speakers) > 0
+        assert self.currentSpeaker is None
+        advocat = self.contradictorsListModel.speakers[0]
+        advocat.changeColor("red")
+        self.currentSpeaker = advocat
+        self.contradicting = True
+        # remove contestants (only allow one contradictor)
+        while len(self.contradictorsListModel.speakers) > 1:
+            self.contradictorsListModel.popSpeaker(1)
+        # TODO: Start timer
+        # color next speaker
+        if len(self.speakersListModel.speakers) > 0:
+            self.speakersListModel.speakers[0].changeColor("lightgreen")
+
+    def stop_contradiction(self):
+        assert self.contradicting
+        advocat = self.contradictorsListModel.popSpeaker()
+        assert advocat is self.currentSpeaker is not None
+        advocat.changeColor("gray")
+        self.currentSpeaker = None
+        self.contradicting = False
+        #TODO: stop timer
 
 
     def on_next_action(self):
-        # ersten redebeitrag abschließen
-        # redner aus redeliste entfernen
-        s = self.speakersListModel.popSpeaker()
-        if s is None:
-            return
-        self.stop_speech(s)
-        # Gegenrede starten
+        # redebeitrag abschließen
+        if self.currentSpeaker is not None :
+            if self.contradicting :
+                self.stop_contradiction()
+            else:
+                self.stop_speech()
 
-        # nächsten redebeitrag beginnen
-        if len(self.speakersListModel.speakers) > 0:
-            ns = self.speakersListModel.speakers[0]
-            self.start_speech(ns)
+        if len(self.contradictorsListModel.speakers) > 0:
+            # Gegenrede starten
+            self.start_contradiction()
+        elif len(self.speakersListModel.speakers) > 0:
+            # nächsten redebeitrag beginnen
+            self.start_speech()
 
 
 def main():

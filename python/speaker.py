@@ -152,3 +152,8 @@ class SpeakerListModel(QtCore.QAbstractListModel):
         s.signals.nameChanged.disconnect(self.on_name_change)
         self.endRemoveRows()
         return s
+
+    def clear(self):
+        self.beginRemoveRows(QtCore.QModelIndex(), 0, self.rowCount()-1)
+        self.speakers = []
+        self.endRemoveRows()
