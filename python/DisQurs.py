@@ -34,9 +34,14 @@ class MainWindow(base, form):
 
         self.actionAdd_Speaker.triggered.connect(self.on_add_speaker)
         self.actionNext.triggered.connect(self.on_next_action)
+        self.actionPause.triggered.connect(self.on_pause_action)
+
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.tick)
 
         self.contradicting = False
         self.currentSpeaker = None
+        self.pause = False
 
     def populateScene(self, speakers):
         for i, s in enumerate(speakers):
@@ -120,9 +125,8 @@ class MainWindow(base, form):
 
     def start_timer(self):
         self.timeEdit.setTime(QtCore.QTime(0, 0, 0))
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.tick)
-        self.timer.start(1000)
+        if not self.pause:
+            self.timer.start(1000)
 
     def tick(self):
         self.timeEdit.setTime(self.timeEdit.time().addSecs(1))
@@ -130,6 +134,13 @@ class MainWindow(base, form):
     def stop_timer(self):
         self.timer.stop()
 
+    def on_pause_action(self):
+        if not self.pause :
+            self.stop_timer()
+            self.pause = True
+        else:
+            self.timer.start(1000)
+            self.pause = False
 
     def start_speech(self):
         assert len(self.speakersListModel.speakers) > 0
