@@ -24,6 +24,13 @@
        <enum>QLayout::SetMaximumSize</enum>
       </property>
       <item>
+       <widget class="QTimeEdit" name="timeEdit">
+        <property name="displayFormat">
+         <string>mm:ss</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="maximumSize">
          <size>

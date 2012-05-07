@@ -118,6 +118,18 @@ class MainWindow(base, form):
         newContradictor.changeColor("lightred")
 
 
+    def start_timer(self):
+        self.timeEdit.setTime(QtCore.QTime(0, 0, 0))
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.tick)
+        self.timer.start(1000)
+
+    def tick(self):
+        self.timeEdit.setTime(self.timeEdit.time().addSecs(1))
+
+    def stop_timer(self):
+        self.timer.stop()
+
 
     def start_speech(self):
         assert len(self.speakersListModel.speakers) > 0
@@ -126,7 +138,7 @@ class MainWindow(base, form):
         speaker.changeColor("green")
         self.currentSpeaker = speaker
         self.contradicting = False
-        #TODO: Start timer
+        self.start_timer()
         # color next speaker
         if len(self.speakersListModel.speakers) > 1:
             self.speakersListModel.speakers[1].changeColor("lightgreen")
@@ -136,7 +148,7 @@ class MainWindow(base, form):
         assert speaker is self.currentSpeaker is not None
         self.currentSpeaker.changeColor("gray")
         self.currentSpeaker = None
-        #TODO: stop timer
+        self.stop_timer()
 
     def start_contradiction(self):
         assert len(self.contradictorsListModel.speakers) > 0
@@ -148,7 +160,7 @@ class MainWindow(base, form):
         # remove contestants (only allow one contradictor)
         while len(self.contradictorsListModel.speakers) > 1:
             self.contradictorsListModel.popSpeaker(1)
-        # TODO: Start timer
+        self.start_timer()
         # color next speaker
         if len(self.speakersListModel.speakers) > 0:
             self.speakersListModel.speakers[0].changeColor("lightgreen")
@@ -160,7 +172,7 @@ class MainWindow(base, form):
         advocat.changeColor("gray")
         self.currentSpeaker = None
         self.contradicting = False
-        #TODO: stop timer
+        self.stop_timer()
 
 
     def on_next_action(self):
