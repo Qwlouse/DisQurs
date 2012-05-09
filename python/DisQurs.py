@@ -117,6 +117,10 @@ class MainWindow(base, form):
 
         self.contradictorsListModel.appendSpeaker(self.allSpeakers[index])
         #TODO: Sort contradictors
+        sortedContras = sorted(self.contradictorsListModel.speakers, key= lambda x : x.contradictionCounter)
+        self.contradictorsListModel.clear()
+        for s in sortedContras :
+            self.contradictorsListModel.appendSpeaker(s)
         if oldContradictor is not None :
             oldContradictor.changeColor("gray")
         newContradictor = self.contradictorsListModel.speakers[0]
@@ -167,6 +171,7 @@ class MainWindow(base, form):
         advocat = self.contradictorsListModel.speakers[0]
         advocat.changeColor("red")
         self.currentSpeaker = advocat
+        advocat.contradictionCounter += 1
         self.contradicting = True
         # remove contestants (only allow one contradictor)
         while len(self.contradictorsListModel.speakers) > 1:

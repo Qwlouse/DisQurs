@@ -43,6 +43,7 @@ class Speaker(QtGui.QGraphicsItemGroup):
         self.editing = False
         self.dragging = False
         self.leftButtonDown = None
+        self.contradictionCounter = 0
 
     def addPortrait(self, color, filename, yoffset=-35):
         self.portraits[color] = QtGui.QGraphicsPixmapItem(QtGui.QPixmap(filename))
