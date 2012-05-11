@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="153.85687"
+   height="43.196087"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="DisQurs_Logo.svg">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3908"
+       x="-0.18981557"
+       width="1.379631"
+       y="-0.13876408"
+       height="1.2775282"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.2812551"
+         id="feGaussianBlur3910" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3952"
+       x="-0.14207406"
+       width="1.2841481"
+       y="-0.10386282"
+       height="1.2077256"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.959"
+         id="feGaussianBlur3954" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3956"
+       x="-0.13018122"
+       width="1.2603624"
+       y="-0.11129577"
+       height="1.2225915"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.317"
+         id="feGaussianBlur3958" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3972"
+       x="-0.47665924"
+       width="1.9533185"
+       y="-0.11076416"
+       height="1.2215283"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.4140891"
+         id="feGaussianBlur3974" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3995"
+       x="-0.19665198"
+       width="1.393304"
+       y="-0.16594796"
+       height="1.3318959"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.488"
+         id="feGaussianBlur3997" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="148.72166"
+     inkscape:cy="-9.5165047"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1228"
+     inkscape:window-height="676"
+     inkscape:window-x="532"
+     inkscape:window-y="135"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-131.09304,-270.93362)">
+    <text
+       sodipodi:linespacing="125%"
+       id="text3932"
+       y="308.16312"
+       x="228.15826"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;filter:url(#filter3995);font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#0000ff;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Bold"
+         y="308.16312"
+         x="228.15826"
+         id="tspan3934"
+         sodipodi:role="line">u</tspan></text>
+    <g
+       id="g3841"
+       transform="translate(0.25253814,0)">
+      <rect
+         ry="8.9285717"
+         y="270.93362"
+         x="191.60188"
+         height="38.92857"
+         width="31.785715"
+         id="rect2989" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path2991"
+         d="m 212.46859,309.43107 c 5.71428,6.07142 14.28571,3.74999 14.28571,3.74999 0,0 -3.73993,-0.62313 -6.0281,-6.84775"
+         style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
+      <rect
+         id="rect2997"
+         width="23.249622"
+         height="30.259968"
+         x="195.86993"
+         y="275.26791"
+         ry="4.1886916"
+         style="fill:#ffffff" />
+      <g
+         transform="translate(-0.02846146,0.00645196)"
+         id="g3064">
+        <rect
+           style="fill:#b3b3b3"
+           id="rect2999"
+           width="19.687639"
+           height="2.5517743"
+           x="197.67938"
+           y="277.82397"
+           ry="0" />
+        <rect
+           ry="0"
+           y="281.58783"
+           x="197.67938"
+           height="2.5517743"
+           width="19.687639"
+           id="rect3001"
+           style="fill:#b3b3b3" />
+        <rect
+           style="fill:#b3b3b3"
+           id="rect3003"
+           width="19.687639"
+           height="2.5517743"
+           x="197.67938"
+           y="285.35178"
+           ry="0" />
+        <rect
+           ry="0"
+           y="289.11557"
+           x="197.67938"
+           height="2.5517743"
+           width="12.684652"
+           id="rect3005"
+           style="fill:#b3b3b3" />
+        <rect
+           ry="0"
+           y="292.87943"
+           x="197.67938"
+           height="2.5517743"
+           width="19.687639"
+           id="rect3009"
+           style="fill:#b3b3b3" />
+        <rect
+           style="fill:#b3b3b3"
+           id="rect3011"
+           width="19.687639"
+           height="2.5517743"
+           x="197.67938"
+           y="296.64334"
+           ry="0" />
+        <rect
+           ry="0"
+           y="300.40717"
+           x="197.67938"
+           height="2.5517743"
+           width="6.6065888"
+           id="rect3013"
+           style="fill:#b3b3b3" />
+      </g>
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3964"
+       y="308.0152"
+       x="158.34555"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff6600;fill-opacity:1;stroke:none;filter:url(#filter3972);font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ff6600;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Bold"
+         y="308.0152"
+         x="158.34555"
+         id="tspan3966"
+         sodipodi:role="line">i</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+       x="127.89304"
+       y="306.64789"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="127.89304"
+         y="306.64789"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Bold">Dis    urs</tspan></text>
+  </g>
+</svg>
